@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium E-Commerce Store</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   
+    <div class="site-overlay" id="siteOverlay"></div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="main-navbar">
+        <div class="nav-container container">
+            <a href="#" class="brand-logo">
+                <i class="fa-solid fa-bolt brand-icon"></i> TechHaven
+            </a>
+            
+            <div class="nav-search-bar">
+                <i class="fa-solid fa-magnifying-glass search-bar-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search products by name or category...">
+            </div>
+
+            <button class="cart-trigger-btn" id="cartOpenBtn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge-count" id="cartBadgeCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- PROMOTIONAL HERO BANNER -->
+    <section class="promo-hero container">
+        <div class="hero-wrapper">
+            <h1>Upgrade Your Gear</h1>
+            <p>Explore our highly curated index of next-generation gadgets, earbuds, mobile solutions, and studio sound hardware designed for modern creators.</p>
+        </div>
+    </section>
+
+    <!-- CONTENT LAYOUT -->
+    <main class="store-layout container">
+        
+        <!-- Controls sub-header (Filters & Sorting Selection) -->
+        <section class="controls-shelf">
+            <div class="filter-group" id="categoryFilterContainer">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="Earbuds">Earbuds</button>
+                <button class="category-btn" data-category="Watches">Watches</button>
+                <button class="category-btn" data-category="Speakers">Speakers</button>
+                <button class="category-btn" data-category="Mobile">Mobile</button>
+            </div>
+            
+            <div class="sorting-selector-group">
+                <label for="sortSelect">Sort By:</label>
+                <select id="sortSelect">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name-asc">A - Z Alphabetical</option>
+                    <option value="name-desc">Z - A Reverse Alphabetical</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Dynamic Product Listing Section -->
+        <section class="listing-viewport">
+            <div class="product-listing-grid" id="productGrid">
+                <!-- Fallback Loading State -->
+                <div class="viewport-loader">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    <p>Loading curated catalogue...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order History System Panel -->
+        <section class="order-history-viewport">
+            <div class="panel-header">
+                <h2><i class="fa-solid fa-receipt"></i> Your Previous Orders</h2>
+                <p>Track delivery details, dates, and calculated totals from your previous checkouts.</p>
+            </div>
+            <div class="history-cards-container" id="orderHistoryList">
+                <p class="empty-history-fallback">No previous order receipts saved locally on this machine.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SLIDING CART SIDEBAR -->
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="sidebar-header">
+            <h3>Shopping Bag (<span id="cartSidebarCount">0</span>)</h3>
+            <button class="sidebar-close-btn" id="cartCloseBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-content-scroll" id="cartItemsContainer">
+            <!-- Empty state element placeholder -->
+            <div class="cart-empty-placeholder">
+                <i class="fa-solid fa-basket-shopping placeholder-icon"></i>
+                <p>Your shopping bag is empty.</p>
+                <button class="start-shopping-btn" id="startShoppingBtn">Start Shopping</button>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="subtotal-pricing-row">
+                <span>Calculated Subtotal</span>
+                <span class="subtotal-amount-display" id="cartTotalDisplay">$0.00</span>
+            </div>
+            <button class="checkout-process-btn" id="checkoutOpenBtn" disabled>
+                Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- CHECKOUT FORM MODAL -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="modal-surface">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-lock"></i> Secure Checkout</h3>
+                <button class="modal-close-btn" id="modalCloseBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <form id="checkoutForm" autocomplete="on" novalidate>
+                <div class="modal-body-form">
+                    <div class="form-input-control">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="John Doe" required>
+                        <span class="validation-error-label" id="nameValidationError">Full Name must be at least 3 characters long.</span>
+                    </div>
+
+                    <div class="form-input-control">
+                        <label for="emailAddress">Email Address</label>
+                        <input type="email" id="emailAddress" placeholder="johndoe@example.com" required>
+                        <span class="validation-error-label" id="emailValidationError">Please enter a valid active email address (e.g. name@domain.com).</span>
+                    </div>
+
+                    <div class="form-input-control">
+                        <label for="shippingAddress">Shipping Address</label>
+                        <textarea id="shippingAddress" rows="3" placeholder="1234 Technology Blvd, Suite 400" required></textarea>
+                        <span class="validation-error-label" id="addressValidationError">Shipping Address must be at least 10 characters long.</span>
+                    </div>
+
+                    <div class="checkout-financials-overview">
+                        <h4>Order Overview</h4>
+                        <div class="financials-metrics-row">
+                            <span id="overviewItemCount">0 Items</span>
+                            <span class="grand-total-highlight" id="overviewTotalCost">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer-actions">
+                    <button type="button" class="btn-secondary" id="cancelCheckoutBtn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="placeOrderSubmitBtn">Place Your Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SITE-WIDE FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-wrapper container">
+            <p>&copy; 2026 TechHaven Inc. Built as a high-fidelity Vanilla Portfolio Demo.</p>
+        </div>
+    </footer>
+
+    
+    <script src="script.js" type="module"></script>
+</body>
+</html>
